@@ -8,7 +8,6 @@ namespace Watchdog
 {
     public class ProcessMonitor
     {
-        private static object monitorLock = new object();
         private static int heartbeatIntervalMs;
         private static int startupDelayMs;
 
@@ -47,41 +46,38 @@ namespace Watchdog
             {
                 foreach (string path in Properties.Settings.Default.Applications)
                 {
-                    lock (monitorLock)
+                    try
                     {
-                        try
+                        // Get process name
+                        var processName = Path.GetFileNameWithoutExtension(path);
+
+                        // Get process status and respond accordingly
+                        switch (GetProcessStatus(processName))
                         {
-                            // Get process name
-                            var processName = Path.GetFileNameWithoutExtension(path);
+                            case Enums.ProcessStatus.NotRunning:
+                                {
+                                    StartProcess(path);
+                                    break;
+                                }
 
-                            // Get process status and respond accordingly
-                            switch (GetProcessStatus(processName))
-                            {
-                                case Enums.ProcessStatus.NotRunning:
-                                    {
-                                        StartProcess(path);
-                                        break;
-                                    }
+                            case Enums.ProcessStatus.Crashed:
+                            case Enums.ProcessStatus.NotResponding:
+                                {
+                                    KillProcesses(processName);                                        
+                                    break;
+                                }
 
-                                case Enums.ProcessStatus.Crashed:
-                                case Enums.ProcessStatus.NotResponding:
-                                    {
-                                        KillProcesses(processName);                                        
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        // No issues, do nothing
-                                        break;
-                                    }
-                            }
+                            default:
+                                {
+                                    // No issues, do nothing
+                                    break;
+                                }
                         }
-                        catch (Exception e)
-                        {
-                            LogErrorEvent($"The process watchdog has caught an unhandled exception and is exiting: \n{e.Message}\n{e.InnerException}\n{e.StackTrace}", 1004);
-                            throw e;
-                        }
+                    }
+                    catch (Exception e)
+                    {
+                        LogErrorEvent($"The process watchdog has caught an unhandled exception and is exiting: \n{e.Message}\n{e.InnerException}\n{e.StackTrace}", 1004);
+                        throw e;
                     }
                 }
 
