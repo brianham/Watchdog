@@ -1,0 +1,6 @@
+C:\Projects\Starbucks\src\Watchdog\Watchdog\bin\Release\Watchdog.exe.config
+C:\Projects\Starbucks\src\Watchdog\Watchdog\bin\Release\Watchdog.exe
+C:\Projects\Starbucks\src\Watchdog\Watchdog\bin\Release\Watchdog.pdb
+C:\Projects\Starbucks\src\Watchdog\Watchdog\obj\Release\Watchdog.csprojResolveAssemblyReference.cache
+C:\Projects\Starbucks\src\Watchdog\Watchdog\obj\Release\Watchdog.exe
+C:\Projects\Starbucks\src\Watchdog\Watchdog\obj\Release\Watchdog.pdb
