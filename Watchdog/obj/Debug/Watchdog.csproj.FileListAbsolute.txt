@@ -9,3 +9,4 @@ C:\Src\Watchdog\Watchdog\obj\Debug\Watchdog.pdb
 C:\Src\Watchdog\Watchdog\bin\Debug\Watchdog.exe.config
 C:\Src\Watchdog\Watchdog\bin\Debug\Watchdog.exe
 C:\Src\Watchdog\Watchdog\bin\Debug\Watchdog.pdb
+C:\Src\Watchdog\Watchdog\obj\Debug\Watchdog.csprojResolveAssemblyReference.cache
